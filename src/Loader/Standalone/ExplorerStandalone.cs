@@ -97,7 +97,7 @@ namespace UnityExplorer
         {
             if (explorerFolderDest == null)
             {
-                string assemblyLocation = Uri.UnescapeDataString(new Uri(typeof(ExplorerCore).Assembly.CodeBase).AbsolutePath);
+                string assemblyLocation = Uri.UnescapeDataString(new Uri(typeof(ExplorerCore).Assembly.Location).AbsolutePath);
                 explorerFolderDest = Path.GetDirectoryName(assemblyLocation);
             }
         }
