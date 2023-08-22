@@ -29,10 +29,10 @@ namespace UnityExplorer
             => Log;
 #endif
         const string IL2CPP_LIBS_FOLDER =
-#if UNHOLLOWER
-            "unhollowed"
+#if CPP
+        "interop"
 #else
-            "interop"
+        "unhollowed"
 #endif
             ;
         public string UnhollowedModulesFolder => Path.Combine(Paths.BepInExRootPath, IL2CPP_LIBS_FOLDER);

@@ -1,12 +1,7 @@
 ﻿using System.Collections;
 #if CPP
-#if INTEROP
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppInterop.Runtime;
-#else
-using UnhollowerRuntimeLib;
-using UnhollowerBaseLib;
-#endif
 #endif
 
 namespace UnityExplorer.Tests

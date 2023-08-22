@@ -2,8 +2,6 @@ name: Build UnityExplorer
 
 # Controls when the action will run. 
 on:
-  push:
-    branches: [master]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -17,12 +15,13 @@ jobs:
 
       - name: Checkout latest      
         uses: actions/checkout@v2
+      - name: Update submodules
+        run: git submodule update --init
         
       - name: Setup dotnet
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.x'
-          include-prerelease: true
         
       # Run build script
       - run: |
@@ -35,12 +34,6 @@ jobs:
         with:
           name: UnityExplorer.BepInEx.IL2CPP.zip
           path: ./Release/UnityExplorer.BepInEx.IL2CPP/
-      
-      # BepInEx IL2CPP CoreCLR
-      - uses: actions/upload-artifact@v2
-        with:
-          name: UnityExplorer.BepInEx.IL2CPP.CoreCLR.zip
-          path: ./Release/UnityExplorer.BepInEx.IL2CPP.CoreCLR/
      
       # BepInEx 5 Mono
       - uses: actions/upload-artifact@v2
@@ -60,13 +53,7 @@ jobs:
           name: UnityExplorer.Editor.zip
           path: ./UnityEditorPackage/
       
-      # MelonLoader IL2CPP net6preview
-      - uses: actions/upload-artifact@v2
-        with:
-          name: UnityExplorer.MelonLoader.IL2CPP.net6preview.zip
-          path: ./Release/UnityExplorer.MelonLoader.IL2CPP.net6preview/
-      
-      # MelonLoader IL2CPP net472
+      # MelonLoader IL2CPP
       - uses: actions/upload-artifact@v2
         with:
           name: UnityExplorer.MelonLoader.IL2CPP.zip

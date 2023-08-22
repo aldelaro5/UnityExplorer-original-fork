@@ -1,10 +1,7 @@
 ﻿using HarmonyLib;
 using UniverseLib.UI;
 using UniverseLib.UI.Models;
-#if UNHOLLOWER
-using IL2CPPUtils = UnhollowerBaseLib.UnhollowerUtils;
-#endif
-#if INTEROP
+#if CPP
 using IL2CPPUtils = Il2CppInterop.Common.Il2CppInteropUtils;
 #endif
 
