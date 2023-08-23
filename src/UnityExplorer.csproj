@@ -7,11 +7,76 @@
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
-        <DebugSymbols>false</DebugSymbols>
-        <DebugType>none</DebugType>
         <RootNamespace>UnityExplorer</RootNamespace>
         <LangVersion>10.0</LangVersion>
-        <Configurations>BIE_Cpp;BIE5_Mono;BIE6_Mono;ML_Cpp;ML_Mono;STANDALONE_Mono;STANDALONE_Cpp</Configurations>
+        <Configurations>
+            Release_BIE_Cpp;Release_BIE5_Mono;Release_BIE6_Mono;Release_ML_Cpp;Release_ML_Mono;Release_STANDALONE_Mono;Release_STANDALONE_Cpp;
+            Debug_BIE_Cpp;Debug_BIE5_Mono;Debug_BIE6_Mono;Debug_ML_Cpp;Debug_ML_Mono;Debug_STANDALONE_Mono;Debug_STANDALONE_Cpp
+        </Configurations>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration.StartsWith('Release'))">
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
+        <BuildConfigType>Release</BuildConfigType>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <BuildConfigType>Debug</BuildConfigType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration.EndsWith('Cpp'))">
+        <TargetFramework>net6.0</TargetFramework>
+        <ScriptingBackend>IL2CPP</ScriptingBackend>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.EndsWith('Mono'))">
+        <TargetFramework>net35</TargetFramework>
+        <ScriptingBackend>Mono</ScriptingBackend>
+    </PropertyGroup>
+
+    <!-- ~~~~~ CONFIGURATIONS ~~~~~ -->
+    <!-- ML IL2CPP -->
+    <PropertyGroup Condition="$(Configuration.EndsWith('ML_Cpp'))">
+        <OutputPath>..\$(BuildConfigType)\UnityExplorer.MelonLoader.IL2CPP\</OutputPath>
+        <DefineConstants>CPP,ML</DefineConstants>
+        <AssemblyName>UnityExplorer.ML.IL2CPP</AssemblyName>
+    </PropertyGroup>
+    <!-- ML MONO -->
+    <PropertyGroup Condition="$(Configuration.EndsWith('ML_Mono'))">
+        <OutputPath>..\$(BuildConfigType)\UnityExplorer.MelonLoader.Mono\</OutputPath>
+        <DefineConstants>MONO,ML</DefineConstants>
+        <AssemblyName>UnityExplorer.ML.Mono</AssemblyName>
+    </PropertyGroup>
+    <!-- BEPINEX IL2CPP -->
+    <PropertyGroup Condition="$(Configuration.EndsWith('BIE_Cpp'))">
+        <OutputPath>..\$(BuildConfigType)\UnityExplorer.BepInEx.IL2CPP\</OutputPath>
+        <DefineConstants>CPP,BIE,BIE6</DefineConstants>
+        <AssemblyName>UnityExplorer.BIE.IL2CPP</AssemblyName>
+    </PropertyGroup>
+    <!-- BEPINEX 6 MONO -->
+    <PropertyGroup Condition="$(Configuration.EndsWith('BIE6_Mono'))">
+        <OutputPath>..\$(BuildConfigType)\UnityExplorer.BepInEx6.Mono\</OutputPath>
+        <DefineConstants>MONO,BIE,BIE6</DefineConstants>
+        <AssemblyName>UnityExplorer.BIE6.Mono</AssemblyName>
+    </PropertyGroup>
+    <!-- BEPINEX 5 MONO -->
+    <PropertyGroup Condition="$(Configuration.EndsWith('BIE5_Mono'))">
+        <OutputPath>..\$(BuildConfigType)\UnityExplorer.BepInEx5.Mono\</OutputPath>
+        <DefineConstants>MONO,BIE,BIE5</DefineConstants>
+        <AssemblyName>UnityExplorer.BIE5.Mono</AssemblyName>
+    </PropertyGroup>
+    <!-- STANDALONE Mono -->
+    <PropertyGroup Condition="$(Configuration.EndsWith('STANDALONE_Mono'))">
+        <OutputPath>..\$(BuildConfigType)\UnityExplorer.Standalone.Mono\</OutputPath>
+        <DefineConstants>MONO,STANDALONE</DefineConstants>
+        <AssemblyName>UnityExplorer.STANDALONE.Mono</AssemblyName>
+    </PropertyGroup>
+    <!-- STANDALONE IL2CPP -->
+    <PropertyGroup Condition="$(Configuration.EndsWith('STANDALONE_Cpp'))">
+        <OutputPath>..\$(BuildConfigType)\UnityExplorer.Standalone.IL2CPP\</OutputPath>
+        <DefineConstants>CPP,STANDALONE</DefineConstants>
+        <AssemblyName>UnityExplorer.STANDALONE.IL2CPP</AssemblyName>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -19,171 +84,86 @@
         <PS Condition="$(OS) != WINDOWS_NT">pwsh</PS>
     </PropertyGroup>
 
-    <!--    <Target Name="BuildUniverseLibIL2CPP"-->
-    <!--            AfterTargets="CollectPackageReferences"-->
-    <!--            Condition="'$(Configuration)'=='ML_Cpp' or '$(Configuration)'=='STANDALONE_Cpp' or '$(Configuration)'=='BIE_Cpp'">-->
-    <!--        <MSBuild Projects="../lib/UniverseLib/src/UniverseLib.csproj" Targets="Restore;Build"-->
-    <!--                 Properties="Configuration=Release_IL2CPP"/>-->
-    <!--    </Target>-->
-
-    <!--    <Target Name="BuildUniverseLibMono"-->
-    <!--            AfterTargets="CollectPackageReferences"-->
-    <!--            Condition="'$(Configuration)'=='BIE6_Mono' or '$(Configuration)'=='BIE5_Mono' or '$(Configuration)'=='ML_Mono' or '$(Configuration)'=='STANDALONE_Mono'">-->
-    <!--        <MSBuild Projects="../lib/UniverseLib/src/UniverseLib.csproj" Targets="Restore;Build"-->
-    <!--                 Properties="Configuration=Release_Mono;TargetFramework=net35"/>-->
-    <!--    </Target>-->
-
     <Target Name="BuildUniverseLibMono" BeforeTargets="ResolveAssemblyReferences">
-        <Exec Command="$(PS) ./build.ps1" WorkingDirectory="../lib/UniverseLib/"/>
+        <Message Text="Build type: $(BuildConfigType) Scripting Backend: $(ScriptingBackend)" Importance="high"/>
+        <Message Text="Output path: $(OutputPath)" Importance="high"/>
+        <Exec Command="$(PS) ./build.ps1 &quot;$(BuildConfigType)&quot;" WorkingDirectory="../lib/UniverseLib/"/>
+        <Copy Condition="$(BuildConfigType) == 'Debug'"
+              SourceFiles="../lib/UniverseLib/Debug/NuGet_$(ScriptingBackend)/lib/$(TargetFramework)/UniverseLib.$(ScriptingBackend).pdb"
+              DestinationFolder="$(OutputPath)"/>
     </Target>
 
-    <!-- ~~~~~ CONFIGURATIONS ~~~~~ -->
-    <!-- ML IL2CPP net6 -->
-    <PropertyGroup Condition="'$(Configuration)'=='ML_Cpp'">
-        <TargetFramework>net6</TargetFramework>
-        <OutputPath>..\Release\UnityExplorer.MelonLoader.IL2CPP\</OutputPath>
-        <DefineConstants>CPP,ML</DefineConstants>
-        <AssemblyName>UnityExplorer.ML.IL2CPP</AssemblyName>
-    </PropertyGroup>
-    <!-- ML MONO -->
-    <PropertyGroup Condition="'$(Configuration)'=='ML_Mono'">
-        <TargetFramework>net35</TargetFramework>
-        <OutputPath>..\Release\UnityExplorer.MelonLoader.Mono\</OutputPath>
-        <DefineConstants>MONO,ML</DefineConstants>
-        <AssemblyName>UnityExplorer.ML.Mono</AssemblyName>
-    </PropertyGroup>
-    <!-- BEPINEX IL2CPP -->
-    <PropertyGroup Condition="'$(Configuration)'=='BIE_Cpp'">
-        <TargetFramework>net6</TargetFramework>
-        <OutputPath>..\Release\UnityExplorer.BepInEx.IL2CPP\</OutputPath>
-        <DefineConstants>CPP,BIE,BIE6</DefineConstants>
-        <AssemblyName>UnityExplorer.BIE.IL2CPP</AssemblyName>
-    </PropertyGroup>
-    <!-- BEPINEX 6 MONO -->
-    <PropertyGroup Condition="'$(Configuration)'=='BIE6_Mono'">
-        <TargetFramework>net35</TargetFramework>
-        <OutputPath>..\Release\UnityExplorer.BepInEx6.Mono\</OutputPath>
-        <DefineConstants>MONO,BIE,BIE6</DefineConstants>
-        <AssemblyName>UnityExplorer.BIE6.Mono</AssemblyName>
-    </PropertyGroup>
-    <!-- BEPINEX 5 MONO -->
-    <PropertyGroup Condition="'$(Configuration)'=='BIE5_Mono'">
-        <TargetFramework>net35</TargetFramework>
-        <OutputPath>..\Release\UnityExplorer.BepInEx5.Mono\</OutputPath>
-        <DefineConstants>MONO,BIE,BIE5</DefineConstants>
-        <AssemblyName>UnityExplorer.BIE5.Mono</AssemblyName>
-    </PropertyGroup>
-    <!-- STANDALONE Mono -->
-    <PropertyGroup Condition="'$(Configuration)'=='STANDALONE_Mono'">
-        <TargetFramework>net35</TargetFramework>
-        <OutputPath>..\Release\UnityExplorer.Standalone.Mono\</OutputPath>
-        <DefineConstants>MONO,STANDALONE</DefineConstants>
-        <AssemblyName>UnityExplorer.STANDALONE.Mono</AssemblyName>
-    </PropertyGroup>
-    <!-- STANDALONE Il2Cpp -->
-    <PropertyGroup Condition="'$(Configuration)'=='STANDALONE_Cpp'">
-        <TargetFramework>net6</TargetFramework>
-        <OutputPath>..\Release\UnityExplorer.Standalone.IL2CPP\</OutputPath>
-        <DefineConstants>CPP,STANDALONE</DefineConstants>
-        <AssemblyName>UnityExplorer.STANDALONE.IL2CPP</AssemblyName>
-    </PropertyGroup>
-
-    <!-- ~~~~~ NUGET ~~~~~ -->
     <ItemGroup>
         <PackageReference Include="HarmonyX" Version="2.10.1" IncludeAssets="compile"/>
         <PackageReference Include="Samboy063.Tomlet" Version="3.1.3"/>
+        <Reference Include="UniverseLib.$(ScriptingBackend)">
+            <HintPath Condition="$(Configuration.StartsWith('Debug'))">../lib/UniverseLib/Debug/NuGet_$(ScriptingBackend)/lib/$(TargetFramework)/UniverseLib.$(ScriptingBackend).dll</HintPath>
+            <HintPath Condition="$(Configuration.StartsWith('Release'))">../lib/UniverseLib/Release/NuGet_$(ScriptingBackend)/lib/$(TargetFramework)/UniverseLib.$(ScriptingBackend).dll</HintPath>
+        </Reference>
+        <Reference Include="mcs">
+            <HintPath>..\lib\$(TargetFramework)\mcs.dll</HintPath>
+            <Private>True</Private>
+        </Reference>
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'net35'">
+    <ItemGroup Condition="$(TargetFramework) == 'net35'">
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all"/>
     </ItemGroup>
 
-    <!-- il2cpp nuget -->
-    <ItemGroup Condition="'$(Configuration)'=='ML_Cpp' or '$(Configuration)'=='STANDALONE_Cpp' or '$(Configuration)'=='BIE_Cpp'">
+    <ItemGroup Condition="$(ScriptingBackend) == 'IL2CPP'">
         <PackageReference Include="Il2CppInterop.Common" Version="1.0.0"/>
         <PackageReference Include="Il2CppInterop.Runtime" Version="1.0.0"/>
-        <Reference Include="UniverseLib.IL2CPP">
-            <HintPath>../lib/UniverseLib/Release/NuGet_IL2CPP/lib/net6.0/UniverseLib.IL2CPP.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <!-- mono nuget -->
-    <ItemGroup Condition="'$(Configuration)'=='BIE6_Mono' or '$(Configuration)'=='BIE5_Mono' or '$(Configuration)'=='ML_Mono' or '$(Configuration)'=='STANDALONE_Mono'">
-        <Reference Include="UniverseLib.Mono">
-            <HintPath>../lib/UniverseLib/Release/NuGet_Mono/lib/net35/UniverseLib.Mono.dll</HintPath>
-        </Reference>
     </ItemGroup>
 
-    <!-- ~~~~~ ASSEMBLY REFERENCES ~~~~~ -->
-    <!-- net6 -->
-    <ItemGroup Condition="'$(TargetFramework)'=='net6'">
-        <Reference Include="mcs">
-            <HintPath>..\lib\net6\mcs.dll</HintPath>
-            <Private>True</Private>
-        </Reference>
-    </ItemGroup>
-    <!-- net35 / net472 -->
-    <ItemGroup Condition="'$(TargetFramework)'=='net35'">
-        <Reference Include="mcs">
-            <HintPath>..\lib\net35\mcs.dll</HintPath>
-            <Private>True</Private>
-        </Reference>
-    </ItemGroup>
-    <!-- MelonLoader net6 -->
-    <ItemGroup Condition="'$(Configuration)'=='ML_Cpp'">
+    <!-- MelonLoader -->
+    <ItemGroup Condition="$(Configuration.Contains('ML_'))">
         <Reference Include="MelonLoader">
-            <HintPath>..\lib\net6\MelonLoader.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
-    <!-- MelonLoader net35 -->
-    <ItemGroup Condition="'$(Configuration)'=='ML_Mono' or '$(Configuration)'=='ML_Cpp'">
-        <Reference Include="MelonLoader">
-            <HintPath>..\lib\net35\MelonLoader.dll</HintPath>
+            <HintPath>..\lib\$(TargetFramework)\MelonLoader.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
     <!-- BepInEx 5 Mono -->
-    <ItemGroup Condition="'$(Configuration)'=='BIE5_Mono'">
+    <ItemGroup Condition="$(Configuration.EndsWith('BIE5_Mono'))">
         <Reference Include="BepInEx">
-            <HintPath>..\lib\net35\BepInEx.dll</HintPath>
+            <HintPath>..\lib\$(TargetFramework)\BepInEx.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
     <!-- BepInEx 6 Mono -->
-    <ItemGroup Condition="'$(Configuration)'=='BIE6_Mono'">
+    <ItemGroup Condition="$(Configuration.EndsWith('BIE6_Mono'))">
         <Reference Include="BepInEx">
-            <HintPath>..\lib\net35\BepInEx.Core.dll</HintPath>
+            <HintPath>..\lib\$(TargetFramework)\BepInEx.Core.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="BepInEx.Unity">
-            <HintPath>..\lib\net35\BepInEx.Unity.dll</HintPath>
+            <HintPath>..\lib\$(TargetFramework)\BepInEx.Unity.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
     <!-- BepInEx Il2Cpp -->
-    <ItemGroup Condition="'$(Configuration)'=='BIE_Cpp'">
+    <ItemGroup Condition="$(Configuration.EndsWith('BIE_Cpp'))">
         <Reference Include="BepInEx">
-            <HintPath>..\lib\net6\BepInEx.Core.dll</HintPath>
+            <HintPath>..\lib\$(TargetFramework)\BepInEx.Core.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="BepInEx.IL2CPP">
-            <HintPath>..\lib\net6\BepInEx.IL2CPP.dll</HintPath>
+            <HintPath>..\lib\$(TargetFramework)\BepInEx.IL2CPP.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
     <!-- Mono -->
-    <ItemGroup Condition="'$(Configuration)'=='BIE6_Mono' or '$(Configuration)'=='BIE5_Mono' or '$(Configuration)'=='ML_Mono' or '$(Configuration)'=='STANDALONE_Mono'">
+    <ItemGroup Condition="$(ScriptingBackend) == 'Mono'">
         <Reference Include="UnityEngine">
-            <HintPath>..\lib\net35\UnityEngine.dll</HintPath>
+            <HintPath>..\lib\$(TargetFramework)\UnityEngine.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>..\lib\net35\UnityEngine.UI.dll</HintPath>
+            <HintPath>..\lib\$(TargetFramework)\UnityEngine.UI.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
-    <!-- Il2Cpp Interop -->
-    <ItemGroup Condition="'$(Configuration)'=='BIE_Cpp' or '$(Configuration)'=='ML_Cpp' or '$(Configuration)'=='STANDALONE_Cpp'">
+    <!-- Il2Cpp -->
+    <ItemGroup Condition="$(ScriptingBackend) == 'IL2CPP'">
         <Reference Include="Il2Cppmscorlib">
             <HintPath>..\lib\interop\Il2Cppmscorlib.dll</HintPath>
             <Private>False</Private>
