@@ -11,6 +11,7 @@ namespace UnityExplorer.UI.Panels
     {
         public FreeCamPanel(UIBase owner) : base(owner)
         {
+            UIManager.UiBase.Panels.OnClickedOutsidePanels += OnUnfocussed;
         }
 
         public override string Name => "Freecam";
@@ -46,6 +47,13 @@ namespace UnityExplorer.UI.Panels
         static InputFieldRef moveSpeedInput;
         static ButtonRef inspectButton;
 
+
+        private void OnUnfocussed()
+        {
+            positionInput.Component.DeactivateInputField();
+            moveSpeedInput.Component.DeactivateInputField();
+        }
+        
         internal static void BeginFreecam()
         {
             inFreeCamMode = true;

@@ -36,6 +36,12 @@ namespace UnityExplorer.UI.Panels
 
         public CSConsolePanel(UIBase owner) : base(owner)
         {
+            UIManager.UiBase.Panels.OnClickedOutsidePanels += OnUnfocussed;
+        }
+
+        private void OnUnfocussed()
+        {
+            Input.Component.DeactivateInputField();
         }
 
         private void InvokeOnValueChanged(string value)

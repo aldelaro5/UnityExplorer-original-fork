@@ -37,6 +37,15 @@ namespace UnityExplorer.CacheObject.IValues
             DictScrollPool.Refresh(true, true);
         }
 
+        public override void OnUnfocussed()
+        {
+            base.OnUnfocussed();
+            foreach (CacheKeyValuePair cacheKeyValuePair in cachedEntries)
+            {
+                cacheKeyValuePair.OnUnfocussed();
+            }
+        }
+
         public override void ReleaseFromOwner()
         {
             base.ReleaseFromOwner();

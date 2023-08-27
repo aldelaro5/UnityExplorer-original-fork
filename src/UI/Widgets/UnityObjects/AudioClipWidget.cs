@@ -33,6 +33,12 @@ namespace UnityExplorer.UI.Widgets
         InputFieldRef savePathInput;
         GameObject cantSaveRow;
 
+        public override void UnOnfucussed()
+        {
+            base.UnOnfucussed();
+            savePathInput.Component.DeactivateInputField();
+        }
+
         public override void OnBorrowed(object target, Type targetType, ReflectionInspector inspector)
         {
             base.OnBorrowed(target, targetType, inspector);

@@ -41,6 +41,11 @@ namespace UnityExplorer
             CreateInspector<ReflectionInspector>(type, true);
         }
 
+        public static void OnUnfocussed()
+        {
+            ActiveInspector?.OnUnfocussed();
+        }
+        
         static bool TryFocusActiveInspector(object target)
         {
             foreach (InspectorBase inspector in Inspectors)

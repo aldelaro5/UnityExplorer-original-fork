@@ -41,6 +41,13 @@ namespace UnityExplorer.Hooks
         public static Text EditorInputText { get; private set; }
         public static Text EditorHighlightText { get; private set; }
 
+        public void OnUnfocussed()
+        {
+            AddHooksMethodFilterInput.Component.DeactivateInputField();
+            ClassSelectorInputField.Component.DeactivateInputField();
+            EditorInput.Component.DeactivateInputField();
+        }
+        
         // ~~~~~~ New hook method selector ~~~~~~~
 
         public void OnClassSelectedForHooks(string typeFullName)

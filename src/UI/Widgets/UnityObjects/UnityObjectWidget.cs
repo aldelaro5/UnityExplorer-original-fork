@@ -19,6 +19,12 @@ namespace UnityExplorer.UI.Widgets
         public GameObject UIRoot { get; set; }
         public float DefaultHeight => -1;
 
+        public virtual void UnOnfucussed()
+        {
+            nameInput.Component.DeactivateInputField();
+            instanceIdInput.Component.DeactivateInputField();
+        }
+
         public static UnityObjectWidget GetUnityWidget(object target, Type targetType, ReflectionInspector inspector)
         {
             if (!typeof(UnityEngine.Object).IsAssignableFrom(targetType))

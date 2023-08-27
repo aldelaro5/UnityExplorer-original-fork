@@ -52,5 +52,7 @@ namespace UnityExplorer.CacheObject.IValues
         public virtual void SetLayout() { }
 
         public abstract GameObject CreateContent(GameObject parent);
+
+        public virtual void OnUnfocussed() { }
     }
 }

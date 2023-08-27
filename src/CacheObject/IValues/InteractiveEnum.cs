@@ -26,6 +26,12 @@ namespace UnityExplorer.CacheObject.IValues
         public CachedEnumValue ValueAtIndex(int idx) => (CachedEnumValue)CurrentValues[idx];
         public CachedEnumValue ValueAtKey(object key) => (CachedEnumValue)CurrentValues[key];
 
+        public override void OnUnfocussed()
+        {
+            base.OnUnfocussed();
+            inputField.Component.DeactivateInputField();
+        }
+
         // Setting value from owner
         public override void SetValue(object value)
         {

@@ -39,6 +39,8 @@ namespace UnityExplorer.ObjectExplorer
         private Dropdown allSceneDropdown;
         private ButtonRef loadButton;
         private ButtonRef loadAdditiveButton;
+        private InputFieldRef inputField;
+        private InputFieldRef searchFilterObj;
 
         private IEnumerable<GameObject> GetRootEntries() => SceneHandler.CurrentRootObjects;
 
@@ -49,6 +51,12 @@ namespace UnityExplorer.ObjectExplorer
                 timeOfLastUpdate = Time.realtimeSinceStartup;
                 UpdateTree();
             }
+        }
+
+        public void OnUnfocussed()
+        {
+            inputField.Component.DeactivateInputField();
+            searchFilterObj.Component.DeactivateInputField();
         }
 
         public void UpdateTree()
@@ -205,7 +213,7 @@ namespace UnityExplorer.ObjectExplorer
             UIFactory.SetLayoutElement(filterRow, minHeight: 25, flexibleHeight: 0);
 
             //Filter input field
-            InputFieldRef inputField = UIFactory.CreateInputField(filterRow, "FilterInput", "Search and press enter...");
+            inputField = UIFactory.CreateInputField(filterRow, "FilterInput", "Search and press enter...");
             inputField.Component.targetGraphic.color = new Color(0.2f, 0.2f, 0.2f);
             RuntimeHelper.SetColorBlock(inputField.Component, new Color(0.4f, 0.4f, 0.4f), new Color(0.2f, 0.2f, 0.2f),
                 new Color(0.08f, 0.08f, 0.08f));
@@ -329,7 +337,7 @@ namespace UnityExplorer.ObjectExplorer
 
                     // Search filter
 
-                    InputFieldRef searchFilterObj = UIFactory.CreateInputField(sceneLoaderObj, "SearchFilterInput", "Filter scene names...");
+                    searchFilterObj = UIFactory.CreateInputField(sceneLoaderObj, "SearchFilterInput", "Filter scene names...");
                     UIFactory.SetLayoutElement(searchFilterObj.UIRoot, minHeight: 25, flexibleHeight: 0);
                     searchFilterObj.OnValueChanged += RefreshSceneLoaderOptions;
 

@@ -24,6 +24,13 @@ namespace UnityExplorer.CacheObject.Views
         //public int AdjustedKeyWidth => HalfWidth - 50;
         //public int AdjustedRightWidth => HalfWidth;
 
+        public override void OnUnfocussed()
+        {
+            base.OnUnfocussed();
+            if (KeyInputField.Component.m_AllowInput)
+                KeyInputField.Component.DeactivateInputField();
+        }
+
         private void KeyInspectClicked()
         {
             InspectorManager.Inspect((Occupant as CacheKeyValuePair).DictKey, this.Occupant);

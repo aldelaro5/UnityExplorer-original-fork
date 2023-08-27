@@ -39,6 +39,14 @@ namespace UnityExplorer.UI.Widgets
             Create();
         }
 
+        public void OnUnfocussed()
+        {
+            TagInput.Component.DeactivateInputField();
+            InstanceIDInput.Component.DeactivateInputField();
+            NameInput.Component.DeactivateInputField();
+            PathInput.Component.DeactivateInputField();
+        }
+
         public void UpdateGameObjectInfo(bool firstUpdate, bool force)
         {
             if (firstUpdate)

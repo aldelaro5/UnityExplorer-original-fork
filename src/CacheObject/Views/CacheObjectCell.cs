@@ -58,6 +58,14 @@ namespace UnityExplorer.CacheObject.Views
         public readonly Color subInactiveColor = new(0.23f, 0.23f, 0.23f);
         public readonly Color subActiveColor = new(0.23f, 0.33f, 0.23f);
 
+        public virtual void OnUnfocussed()
+        {
+            if (InputField.Component.m_AllowInput)
+                InputField.Component.DeactivateInputField();
+            if (HiddenNameLabel.Component.m_AllowInput)
+                HiddenNameLabel.Component.DeactivateInputField();
+        }
+        
         protected virtual void ApplyClicked()
         {
             Occupant.OnCellApplyClicked();

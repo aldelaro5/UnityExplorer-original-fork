@@ -23,6 +23,14 @@ namespace UnityExplorer.UI.Widgets
             Create();
         }
 
+        public void OnUnfocussed()
+        {
+            PositionControl.OnUnfocussed();
+            LocalPositionControl.OnUnfocussed();
+            RotationControl.OnUnfocussed();
+            ScaleControl.OnUnfocussed();
+        }
+
         public void UpdateTransformControlValues(bool force)
         {
             PositionControl.Update(force);

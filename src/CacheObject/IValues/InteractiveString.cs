@@ -26,6 +26,15 @@ namespace UnityExplorer.CacheObject.IValues
             SaveFilePath.Text = Path.Combine(ConfigManager.Default_Output_Path.Value, "untitled.txt");
         }
 
+        public override void OnUnfocussed()
+        {
+            base.OnUnfocussed();
+            if (inputField.Component.m_AllowInput)
+                inputField.Component.DeactivateInputField();
+            if (SaveFilePath.Component.m_AllowInput)
+                SaveFilePath.Component.DeactivateInputField();
+        }
+
         private bool IsStringTooLong(string s)
         {
             if (s == null)

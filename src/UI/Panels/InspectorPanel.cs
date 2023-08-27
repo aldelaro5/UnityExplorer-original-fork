@@ -27,6 +27,12 @@ namespace UnityExplorer.UI.Panels
         public InspectorPanel(UIBase owner) : base(owner)
         {
             Instance = this;
+            UIManager.UiBase.Panels.OnClickedOutsidePanels += OnUnfocussed;
+        }
+
+        private void OnUnfocussed()
+        {
+            InspectorManager.OnUnfocussed();
         }
 
         public override void Update()

@@ -36,6 +36,15 @@ namespace UnityExplorer.CacheObject.IValues
             ListScrollPool.Refresh(true, true);
         }
 
+        public override void OnUnfocussed()
+        {
+            base.OnUnfocussed();
+            foreach (CacheListEntry cacheListEntry in cachedEntries)
+            {
+                cacheListEntry.OnUnfocussed();
+            }
+        }
+
         public override void ReleaseFromOwner()
         {
             base.ReleaseFromOwner();

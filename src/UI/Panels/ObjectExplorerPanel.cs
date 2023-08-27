@@ -26,6 +26,13 @@ namespace UnityExplorer.UI.Panels
 
         public ObjectExplorerPanel(UIBase owner) : base(owner)
         {
+            UIManager.UiBase.Panels.OnClickedOutsidePanels += OnUnfocussed;
+        }
+
+        private void OnUnfocussed()
+        {
+            SceneExplorer.OnUnfocussed();
+            ObjectSearch.OnUnfocussed();
         }
 
         public void SetTab(int tabIndex)

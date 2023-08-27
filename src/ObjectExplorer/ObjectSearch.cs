@@ -37,6 +37,7 @@ namespace UnityExplorer.ObjectExplorer
         private GameObject childFilterRow;
         private GameObject classInputRow;
         private GameObject nameInputRow;
+        private InputFieldRef classInputField;
         private InputFieldRef nameInputField;
         private Text resultsLabel;
 
@@ -83,6 +84,12 @@ namespace UnityExplorer.ObjectExplorer
         }
 
         // UI Callbacks
+        
+        public void OnUnfocussed()
+        {
+            classInputField.Component.DeactivateInputField();
+            nameInputField.Component.DeactivateInputField();
+        }
 
         private void OnContextDropdownChanged(int value)
         {
@@ -182,7 +189,7 @@ namespace UnityExplorer.ObjectExplorer
             Text unityClassLbl = UIFactory.CreateLabel(classInputRow, "ClassLabel", "Class filter:", TextAnchor.MiddleLeft);
             UIFactory.SetLayoutElement(unityClassLbl.gameObject, minWidth: 110, flexibleWidth: 0);
 
-            InputFieldRef classInputField = UIFactory.CreateInputField(classInputRow, "ClassInput", "...");
+            classInputField = UIFactory.CreateInputField(classInputRow, "ClassInput", "...");
             UIFactory.SetLayoutElement(classInputField.UIRoot, minHeight: 25, flexibleHeight: 0, flexibleWidth: 9999);
 
             unityObjectTypeCompleter = new(typeof(UnityEngine.Object), classInputField, true, false, true);

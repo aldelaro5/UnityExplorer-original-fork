@@ -32,6 +32,12 @@ namespace UnityExplorer.UI.Panels
 
         public HookManagerPanel(UIBase owner) : base(owner)
         {
+            UIManager.UiBase.Panels.OnClickedOutsidePanels += OnUnfocussed;
+        }
+
+        private void OnUnfocussed()
+        {
+            hookCreator.OnUnfocussed();
         }
 
         public void SetPage(Pages page)

@@ -17,6 +17,8 @@ namespace UnityExplorer.UI.Widgets
         public AxisControl[] AxisControls { get; } = new AxisControl[3];
 
         public InputFieldRef IncrementInput { get; set; }
+        private static InputFieldRef inputField;
+        
         public float Increment { get; set; } = 0.1f;
 
         Vector3 lastValue;
@@ -35,6 +37,13 @@ namespace UnityExplorer.UI.Widgets
             this.Owner = owner;
             this.Type = type;
             this.MainInput = input;
+        }
+
+        public void OnUnfocussed()
+        {
+            MainInput.Component.DeactivateInputField();
+            IncrementInput.Component.DeactivateInputField();
+            inputField.Component.DeactivateInputField();
         }
 
         public void Update(bool force)
@@ -104,7 +113,7 @@ namespace UnityExplorer.UI.Widgets
             Text titleLabel = UIFactory.CreateLabel(rowObj, "PositionLabel", title, TextAnchor.MiddleRight, Color.grey);
             UIFactory.SetLayoutElement(titleLabel.gameObject, minHeight: 25, minWidth: 110);
 
-            InputFieldRef inputField = UIFactory.CreateInputField(rowObj, "InputField", "...");
+            inputField = UIFactory.CreateInputField(rowObj, "InputField", "...");
             UIFactory.SetLayoutElement(inputField.Component.gameObject, minHeight: 25, minWidth: 100, flexibleWidth: 999);
 
             Vector3Control control = new(owner, type, inputField);

@@ -17,6 +17,16 @@ namespace UnityExplorer.CacheObject.IValues
 
         private static readonly string[] fieldNames = new[] { "R", "G", "B", "A" };
 
+        public override void OnUnfocussed()
+        {
+            base.OnUnfocussed();
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                if (inputs[i].Component.m_AllowInput)
+                    inputs[i].Component.DeactivateInputField();
+            }
+        }
+
         public override void OnBorrowed(CacheObjectBase owner)
         {
             base.OnBorrowed(owner);

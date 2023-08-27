@@ -50,6 +50,12 @@ namespace UnityExplorer.CacheObject
 
         protected const string NOT_YET_EVAL = "<color=grey>Not yet evaluated</color>";
 
+        public void OnUnfocussed()
+        {
+            IValue?.OnUnfocussed();
+            CellView?.OnUnfocussed();
+        }
+        
         public virtual void SetFallbackType(Type fallbackType)
         {
             this.FallbackType = fallbackType;

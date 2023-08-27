@@ -18,6 +18,8 @@ namespace UnityExplorer.Inspectors
 
         public abstract void Update();
 
+        public abstract void OnUnfocussed();
+
         public abstract void CloseInspector();
 
         public virtual void OnBorrowedFromPool(object target)

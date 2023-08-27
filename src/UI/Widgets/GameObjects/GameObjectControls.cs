@@ -21,6 +21,12 @@ namespace UnityExplorer.UI.Widgets
             this.TransformControl = new(this);
         }
 
+        public void OnUnfocussed()
+        {
+            GameObjectInfo.OnUnfocussed();
+            TransformControl.OnUnfocussed();
+        }
+
         public void UpdateGameObjectInfo(bool firstUpdate, bool force)
         {
             GameObjectInfo.UpdateGameObjectInfo(firstUpdate, force);

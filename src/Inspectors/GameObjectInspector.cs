@@ -62,6 +62,13 @@ namespace UnityExplorer.Inspectors
             UpdateComponents();
         }
 
+        public override void OnUnfocussed()
+        {
+            addChildInput.Component.DeactivateInputField();
+            addCompInput.Component.DeactivateInputField();
+            Controls.OnUnfocussed();
+        }
+
         public override void CloseInspector()
         {
             InspectorManager.ReleaseInspector(this);

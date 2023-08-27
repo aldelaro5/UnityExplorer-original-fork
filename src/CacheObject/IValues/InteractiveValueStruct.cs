@@ -99,6 +99,16 @@ namespace UnityExplorer.CacheObject.IValues
 
             applyButton.Component.gameObject.SetActive(owner.CanWrite);
         }
+        
+        public override void OnUnfocussed()
+        {
+            base.OnUnfocussed();
+            for (int i = 0; i < inputFields.Count; i++)
+            {
+                if (inputFields[i].Component.m_AllowInput)
+                    inputFields[i].Component.DeactivateInputField();
+            }
+        }
 
         // Setting value from owner to this
 

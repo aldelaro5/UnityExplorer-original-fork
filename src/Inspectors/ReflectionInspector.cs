@@ -94,6 +94,19 @@ namespace UnityExplorer.Inspectors
             LayoutRebuilder.ForceRebuildLayoutImmediate(InspectorPanel.Instance.ContentRect);
         }
 
+        public override void OnUnfocussed()
+        {
+            if (filterInputField.Component.m_AllowInput)
+                filterInputField.Component.DeactivateInputField();
+            if (hiddenNameText.Component.m_AllowInput)
+                hiddenNameText.Component.DeactivateInputField();
+            UnityWidget.UnOnfucussed();
+            for (int i = 0; i < filteredMembers.Count; i++)
+            {
+                filteredMembers[i].OnUnfocussed();
+            }
+        }
+
         public override void CloseInspector()
         {
             InspectorManager.ReleaseInspector(this);
