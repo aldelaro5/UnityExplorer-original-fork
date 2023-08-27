@@ -257,6 +257,19 @@ namespace UnityExplorer.CSConsole
                 timeOfLastCtrlR = Time.realtimeSinceStartup;
                 Evaluate(Panel.Input.Text);
             }
+            
+            if (EnableSuggestions && !settingCaretCoroutine
+                && (InputManager.GetKey(KeyCode.LeftControl) || InputManager.GetKey(KeyCode.RightControl))
+                && InputManager.GetKeyDown(KeyCode.Space)
+                && timeOfLastCtrlR.OccuredEarlierThanDefault())
+            {
+                HighlightVisibleInput(out bool inStringOrComment);
+                if (!inStringOrComment)
+                {
+                    timeOfLastCtrlR = Time.realtimeSinceStartup;
+                    Completer.CheckAutocompletes();
+                }
+            }
         }
 
         static void OnInputScrolled() => HighlightVisibleInput(out _);
@@ -646,7 +659,7 @@ Doorstop example:
         {
             Dropdown drop = Panel.HelpDropdown;
 
-            helpDict.Add("Help", "");
+            helpDict.Add(DEFAULT_HELP_ITEM, "");
             helpDict.Add("Usings", HELP_USINGS);
             helpDict.Add("REPL", HELP_REPL);
             helpDict.Add("Classes", HELP_CLASSES);
@@ -668,6 +681,7 @@ Doorstop example:
             Panel.HelpDropdown.value = 0;
         }
 
+        internal const string DEFAULT_HELP_ITEM = "(Select Help)";
 
         internal const string STARTUP_TEXT = @"<color=#5d8556>// Welcome to the UnityExplorer C# Console!
 
