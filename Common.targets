@@ -21,6 +21,12 @@
         <ScriptingBackend>IL2CPP</ScriptingBackend>
     </PropertyGroup>
     
+    <PropertyGroup Condition="$(AssemblyName) != 'UnityExplorer' And !($(AssemblyName) == 'UnityExplorer.BepInEx5' And $(ScriptingBackend) == 'IL2CPP')">
+        <AssemblyName>$([System.String]::Concat($(AssemblyName), '.', $(ScriptingBackend)))</AssemblyName>
+        <OutputPath>$(SolutionDir)/$(BuildConfigType)/$(AssemblyName)</OutputPath>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+    
     <!-- Mono -->
     <ItemGroup Condition="$(ScriptingBackend) == 'Mono'">
         <Reference Include="UnityEngine">
