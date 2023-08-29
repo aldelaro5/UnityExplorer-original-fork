@@ -14,7 +14,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\UnityExplorer.Core\UnityExplorer.Core.csproj">
-          <Private>false</Private>
+          <Private Condition="$(BuildConfigType) == 'Release'">false</Private>
       </ProjectReference>
     </ItemGroup>
 </Project>
