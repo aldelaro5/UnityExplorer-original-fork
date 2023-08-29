@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using UnityEngine;
-using UnityExplorer.Config;
+using UnityExplorer.Core;
+using UnityExplorer.Core.Config;
 
 namespace UnityExplorer.STANDALONE
 {

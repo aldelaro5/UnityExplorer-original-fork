@@ -3,7 +3,8 @@ using System.IO;
 using Tomlet;
 using Tomlet.Models;
 using UnityEngine;
-using UnityExplorer.Config;
+using UnityExplorer.Core;
+using UnityExplorer.Core.Config;
 using UnityExplorer.STANDALONE.Editor;
 
 namespace UnityExplorer.STANDALONE

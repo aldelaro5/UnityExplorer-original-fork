@@ -24,6 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UnityExplorer\UnityExplorer.csproj" />
+      <ProjectReference Include="..\UnityExplorer.Core\UnityExplorer.Core.csproj" />
     </ItemGroup>
 </Project>

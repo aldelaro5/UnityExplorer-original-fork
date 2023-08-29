@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using BepInEx.Configuration;
-using UnityExplorer.Config;
+using UnityExplorer.Core;
+using UnityExplorer.Core.Config;
 
 namespace UnityExplorer.BepInEx6
 {

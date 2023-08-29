@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityExplorer", "UnityExplorer\UnityExplorer.csproj", "{B21DBDE3-5D6F-4726-93AB-CC3CC68BAE7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityExplorer.Core", "UnityExplorer.Core\UnityExplorer.Core.csproj", "{B21DBDE3-5D6F-4726-93AB-CC3CC68BAE7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mcs", "lib\mcs\mcs\mcs.csproj", "{49D9BA79-8367-4614-AC74-154741D46FBF}"
 EndProject
@@ -17,10 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityExplorer.MelonLoader",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityExplorer.STANDALONE", "UnityExplorer.STANDALONE\UnityExplorer.STANDALONE.csproj", "{FB9DFCD3-3E82-4A67-8BE2-27D04B95C21E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "B73A0302-952E-42D6-925D-ABCB95684477"
-    ProjectSection(SolutionItems) = preProject
-        Common.targets = Common.targets
-    EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{B73A0302-952E-42D6-925D-ABCB95684477}"
+				ProjectSection(SolutionItems) = preProject
+								Common.targets = Common.targets
+					build.ps1 = build.ps1
+				EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

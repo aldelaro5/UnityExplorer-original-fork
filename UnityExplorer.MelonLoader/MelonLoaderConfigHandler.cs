@@ -1,6 +1,6 @@
 using System;
 using MelonLoader;
-using UnityExplorer.Config;
+using UnityExplorer.Core.Config;
 
 namespace UnityExplorer.MelonLoader
 {

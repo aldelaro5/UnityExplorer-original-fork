@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using UnityExplorer.Config;
-using UnityExplorer.UI;
+using UnityExplorer.Core.Config;
+using UnityExplorer.Core.UI;
 
 namespace UnityExplorer.STANDALONE.Editor
 {

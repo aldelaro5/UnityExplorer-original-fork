@@ -2,8 +2,8 @@
 using System.IO;
 using MelonLoader;
 using MelonLoader.Utils;
-using UnityExplorer;
-using UnityExplorer.Config;
+using UnityExplorer.Core;
+using UnityExplorer.Core.Config;
 using UnityExplorer.MelonLoader;
 
 #if CPP
@@ -13,8 +13,8 @@ using UnityExplorer.MelonLoader;
 #endif
 
 [assembly: MelonInfo(typeof(ExplorerMelonMod), ExplorerCore.NAME, ExplorerCore.VERSION, ExplorerCore.AUTHOR)]
-[assembly: MelonGame(null, null)]
-[assembly: MelonColor(ConsoleColor.DarkCyan)]
+[assembly: MelonGame]
+[assembly: MelonColor(0xff, 0x0, 0x8b, 0x08b)]
 
 namespace UnityExplorer.MelonLoader
 {
@@ -34,7 +34,7 @@ namespace UnityExplorer.MelonLoader
         public Action<object> OnLogWarning => LoggerInstance.Warning;
         public Action<object> OnLogError   => LoggerInstance.Error;
 
-        public override void OnApplicationStart()
+        public override void OnInitializeMelon()
         {
             _configHandler = new MelonLoaderConfigHandler();
             ExplorerCore.Init(this);

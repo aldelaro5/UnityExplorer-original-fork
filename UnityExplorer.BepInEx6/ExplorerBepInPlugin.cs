@@ -8,7 +8,8 @@ using System.IO;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using UnityExplorer.Config;
+using UnityExplorer.Core;
+using UnityExplorer.Core.Config;
 
 namespace UnityExplorer.BepInEx6
 {

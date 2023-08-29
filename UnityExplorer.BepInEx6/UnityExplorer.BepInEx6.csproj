@@ -5,8 +5,8 @@
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
             https://api.nuget.org/v3/index.json;
-            https://nuget.bepinex.dev/v3/index.json
-<!--            https://nuget.samboy.dev/v3/index.json-->
+            https://nuget.bepinex.dev/v3/index.json;
+            https://nuget.samboy.dev/v3/index.json
         </RestoreAdditionalProjectSources>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <Configurations>Debug_Mono;Release_Mono;Debug_IL2CPP;Release_IL2CPP</Configurations>
@@ -25,6 +25,6 @@
     </ItemGroup>
     
     <ItemGroup>
-        <ProjectReference Include="..\UnityExplorer\UnityExplorer.csproj" />
+        <ProjectReference Include="..\UnityExplorer.Core\UnityExplorer.Core.csproj" />
     </ItemGroup>
 </Project>
