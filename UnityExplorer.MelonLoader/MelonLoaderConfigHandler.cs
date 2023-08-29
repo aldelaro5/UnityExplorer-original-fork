@@ -1,13 +1,8 @@
-#if ML
-using MelonLoader;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+using MelonLoader;
 using UnityExplorer.Config;
 
-namespace UnityExplorer.Loader.ML
+namespace UnityExplorer.MelonLoader
 {
     public class MelonLoaderConfigHandler : ConfigHandler
     {
@@ -18,6 +13,11 @@ namespace UnityExplorer.Loader.ML
         public override void Init()
         {
             prefCategory = MelonPreferences.CreateCategory(CTG_NAME, $"{CTG_NAME} Settings", false, true);
+        }
+
+        public override void PostInit()
+        {
+            // Not necessary
         }
 
         public override void LoadConfig()
@@ -90,4 +90,3 @@ namespace UnityExplorer.Loader.ML
         }
     }
 }
-#endif

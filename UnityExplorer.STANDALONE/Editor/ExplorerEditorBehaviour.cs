@@ -1,16 +1,8 @@
-﻿#if STANDALONE
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityExplorer.Config;
 using UnityExplorer.UI;
-using UniverseLib;
 
-namespace UnityExplorer.Loader.Standalone
+namespace UnityExplorer.STANDALONE.Editor
 {
     public class ExplorerEditorBehaviour : MonoBehaviour
     {
@@ -56,4 +48,3 @@ namespace UnityExplorer.Loader.Standalone
         }
     }
 }
-#endif

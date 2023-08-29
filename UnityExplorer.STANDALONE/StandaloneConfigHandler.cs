@@ -1,15 +1,12 @@
-﻿#if STANDALONE
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityExplorer.Config;
+﻿using System;
 using System.IO;
-using UnityEngine;
 using Tomlet;
 using Tomlet.Models;
+using UnityEngine;
+using UnityExplorer.Config;
+using UnityExplorer.STANDALONE.Editor;
 
-namespace UnityExplorer.Loader.Standalone
+namespace UnityExplorer.STANDALONE
 {
     public class StandaloneConfigHandler : ConfigHandler
     {
@@ -18,6 +15,11 @@ namespace UnityExplorer.Loader.Standalone
         public override void Init()
         {
             CONFIG_PATH = Path.Combine(ExplorerCore.ExplorerFolder, "config.cfg");
+        }
+
+        public override void PostInit()
+        {
+            ExplorerEditorBehaviour.Instance.LoadConfigs();
         }
 
         public override void LoadConfig()
@@ -99,5 +101,3 @@ namespace UnityExplorer.Loader.Standalone
         }
     }
 }
-
-#endif

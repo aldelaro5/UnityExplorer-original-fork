@@ -13,6 +13,11 @@ namespace UnityExplorer.Config
             CONFIG_PATH = Path.Combine(ExplorerCore.ExplorerFolder, "data.cfg");
         }
 
+        public override void PostInit()
+        {
+            // Not necessary
+        }
+
         public override void LoadConfig()
         {
             if (!TryLoadConfig())

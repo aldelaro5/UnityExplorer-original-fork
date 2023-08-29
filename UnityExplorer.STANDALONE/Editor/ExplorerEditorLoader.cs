@@ -1,12 +1,7 @@
-﻿#if STANDALONE
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using UnityEngine;
 
-namespace UnityExplorer.Loader.Standalone
+namespace UnityExplorer.STANDALONE.Editor
 {
     public class ExplorerEditorLoader : ExplorerStandalone
     {
@@ -40,4 +35,3 @@ namespace UnityExplorer.Loader.Standalone
         }
     }
 }
-#endif

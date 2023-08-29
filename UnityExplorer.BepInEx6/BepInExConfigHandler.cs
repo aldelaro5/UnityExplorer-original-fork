@@ -1,8 +1,9 @@
-﻿#if BIE
+﻿using System;
+using System.Collections.Generic;
 using BepInEx.Configuration;
 using UnityExplorer.Config;
 
-namespace UnityExplorer.Loader.BIE
+namespace UnityExplorer.BepInEx6
 {
     public class BepInExConfigHandler : ConfigHandler
     {
@@ -11,6 +12,11 @@ namespace UnityExplorer.Loader.BIE
         private const string CTG_NAME = "UnityExplorer";
 
         public override void Init()
+        {
+            // Not necessary
+        }
+
+        public override void PostInit()
         {
             // Not necessary
         }
@@ -61,5 +67,3 @@ namespace UnityExplorer.Loader.BIE
         }
     }
 }
-
-#endif

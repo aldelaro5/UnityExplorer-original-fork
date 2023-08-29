@@ -4,7 +4,7 @@ namespace UnityExplorer.Config
 {
     public static class ConfigManager
     {
-        internal static readonly Dictionary<string, IConfigElement> ConfigElements = new();
+        public static readonly Dictionary<string, IConfigElement> ConfigElements = new();
         internal static readonly Dictionary<string, IConfigElement> InternalConfigs = new();
 
         // Each Mod Loader has its own ConfigHandler.
@@ -52,9 +52,7 @@ namespace UnityExplorer.Config
             Handler.LoadConfig();
             InternalHandler.LoadConfig();
 
-#if STANDALONE
-            Loader.Standalone.ExplorerEditorBehaviour.Instance?.LoadConfigs();
-#endif
+            Handler.PostInit();
         }
 
         internal static void RegisterConfigElement<T>(ConfigElement<T> configElement)

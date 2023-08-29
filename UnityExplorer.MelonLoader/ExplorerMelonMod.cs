@@ -1,10 +1,10 @@
-﻿#if ML
-using System;
+﻿using System;
 using System.IO;
 using MelonLoader;
+using MelonLoader.Utils;
 using UnityExplorer;
 using UnityExplorer.Config;
-using UnityExplorer.Loader.ML;
+using UnityExplorer.MelonLoader;
 
 #if CPP
 [assembly: MelonPlatformDomain(MelonPlatformDomainAttribute.CompatibleDomains.IL2CPP)]
@@ -16,15 +16,15 @@ using UnityExplorer.Loader.ML;
 [assembly: MelonGame(null, null)]
 [assembly: MelonColor(ConsoleColor.DarkCyan)]
 
-namespace UnityExplorer
+namespace UnityExplorer.MelonLoader
 {
     public class ExplorerMelonMod : MelonMod, IExplorerLoader
     {
         public string ExplorerFolderName => ExplorerCore.DEFAULT_EXPLORER_FOLDER_NAME;
-        public string ExplorerFolderDestination => MelonHandler.ModsDirectory;
+        public string ExplorerFolderDestination => MelonEnvironment.ModsDirectory;
 
         public string UnhollowedModulesFolder => Path.Combine(
-            Path.GetDirectoryName(MelonHandler.ModsDirectory),
+            Path.GetDirectoryName(MelonEnvironment.ModsDirectory),
             Path.Combine("MelonLoader", "Managed"));
 
         public ConfigHandler ConfigHandler => _configHandler;
@@ -41,4 +41,3 @@ namespace UnityExplorer
         }
     }
 }
-#endif

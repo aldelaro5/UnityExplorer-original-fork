@@ -10,6 +10,8 @@
 
         public abstract void Init();
 
+        public abstract void PostInit();
+
         public abstract void LoadConfig();
 
         public abstract void SaveConfig();

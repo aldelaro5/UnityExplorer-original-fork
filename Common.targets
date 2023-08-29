@@ -1,0 +1,78 @@
+<Project>
+    <PropertyGroup Condition="$(Configuration.StartsWith('Release'))">
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
+        <BuildConfigType>Release</BuildConfigType>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <BuildConfigType>Debug</BuildConfigType>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="$(Configuration.EndsWith('_Mono'))">
+        <TargetFramework>net35</TargetFramework>
+        <DefineConstants>MONO</DefineConstants>
+        <ScriptingBackend>Mono</ScriptingBackend>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.EndsWith('_IL2CPP'))">
+        <TargetFramework>net6.0</TargetFramework>
+        <DefineConstants>CPP</DefineConstants>
+        <ScriptingBackend>IL2CPP</ScriptingBackend>
+    </PropertyGroup>
+    
+    <!-- Mono -->
+    <ItemGroup Condition="$(ScriptingBackend) == 'Mono'">
+        <Reference Include="UnityEngine">
+            <HintPath>..\lib\$(TargetFramework)\UnityEngine.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>..\lib\$(TargetFramework)\UnityEngine.UI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    <!-- Il2Cpp -->
+    <ItemGroup Condition="$(ScriptingBackend) == 'IL2CPP'">
+        <Reference Include="Il2Cppmscorlib">
+            <HintPath>..\lib\interop\Il2Cppmscorlib.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Il2CppSystem.Core">
+            <HintPath>..\lib\interop\Il2CppSystem.Core.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>..\lib\interop\UnityEngine.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.AudioModule">
+            <HintPath>..\lib\interop\UnityEngine.AudioModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>..\lib\interop\UnityEngine.CoreModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <HintPath>..\lib\interop\UnityEngine.PhysicsModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>..\lib\interop\UnityEngine.TextRenderingModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>..\lib\interop\UnityEngine.UI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>..\lib\interop\UnityEngine.UIModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>..\lib\interop\UnityEngine.IMGUIModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+</Project>

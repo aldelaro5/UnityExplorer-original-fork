@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="$(SolutionDir)Common.targets"/>
+    <PropertyGroup>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>latest</LangVersion>
+        <RestoreAdditionalProjectSources>
+            https://api.nuget.org/v3/index.json;
+            https://nuget.bepinex.dev/v3/index.json
+<!--            https://nuget.samboy.dev/v3/index.json-->
+        </RestoreAdditionalProjectSources>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Configurations>Debug_Mono;Release_Mono;Debug_IL2CPP;Release_IL2CPP</Configurations>
+        <Platforms>AnyCPU</Platforms>
+    </PropertyGroup>
+    
+    <ItemGroup Condition="$(ScriptingBackend) == 'IL2CPP'">
+        <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.*" IncludeAssets="compile"/>
+    </ItemGroup>
+    <ItemGroup Condition="$(ScriptingBackend) == 'Mono'">
+        <PackageReference Include="BepInEx.Unity.Mono" Version="6.0.0-be.*" IncludeAssets="compile"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="UnityEngine.Modules" Version="5.2.0" IncludeAssets="compile" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\UnityExplorer\UnityExplorer.csproj" />
+    </ItemGroup>
+</Project>

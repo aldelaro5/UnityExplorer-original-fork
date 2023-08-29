@@ -1,15 +1,9 @@
-﻿#if STANDALONE
-using HarmonyLib;
-using System;
+﻿using System;
 using System.IO;
-using System.Reflection;
 using UnityEngine;
 using UnityExplorer.Config;
-using UnityEngine.EventSystems;
-using UniverseLib.Input;
-using UnityExplorer.Loader.Standalone;
 
-namespace UnityExplorer
+namespace UnityExplorer.STANDALONE
 {
 	public class ExplorerStandalone : IExplorerLoader
     {
@@ -37,9 +31,9 @@ namespace UnityExplorer
         }
         protected static string explorerFolderDest;
         
-        Action<object> IExplorerLoader.OnLogMessage => (object log) => { OnLog?.Invoke(log?.ToString() ?? "", LogType.Log); };
-        Action<object> IExplorerLoader.OnLogWarning => (object log) => { OnLog?.Invoke(log?.ToString() ?? "", LogType.Warning); };
-        Action<object> IExplorerLoader.OnLogError   => (object log) => { OnLog?.Invoke(log?.ToString() ?? "", LogType.Error); };
+        Action<object> IExplorerLoader.OnLogMessage => log => { OnLog?.Invoke(log?.ToString() ?? "", LogType.Log); };
+        Action<object> IExplorerLoader.OnLogWarning => log => { OnLog?.Invoke(log?.ToString() ?? "", LogType.Warning); };
+        Action<object> IExplorerLoader.OnLogError   => log => { OnLog?.Invoke(log?.ToString() ?? "", LogType.Error); };
 
         /// <summary>
         /// Call this to initialize UnityExplorer without adding a log listener or Unhollowed modules path.
@@ -100,4 +94,3 @@ namespace UnityExplorer
         }
     }
 }
-#endif

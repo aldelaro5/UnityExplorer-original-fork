@@ -1,42 +1,20 @@
-﻿#if BIE
+﻿using System;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using UnityExplorer.Config;
-using UnityExplorer.Loader.BIE;
-#if CPP
-using BepInEx.IL2CPP;
-#endif
 
-namespace UnityExplorer
+namespace UnityExplorer.BepInEx5
 {
     [BepInPlugin(ExplorerCore.GUID, "UnityExplorer", ExplorerCore.VERSION)]
 
-    public class ExplorerBepInPlugin :
-#if MONO
-        BaseUnityPlugin
-#else
-        BasePlugin
-#endif
-        , IExplorerLoader
+    public class ExplorerBepInPlugin : BaseUnityPlugin, IExplorerLoader
     {
         public static ExplorerBepInPlugin Instance;
 
-        public ManualLogSource LogSource
-#if MONO
-            => Logger;
-#else
-            => Log;
-#endif
-        const string IL2CPP_LIBS_FOLDER =
-#if CPP
-        "interop"
-#else
-        "unhollowed"
-#endif
-            ;
-        public string UnhollowedModulesFolder => Path.Combine(Paths.BepInExRootPath, IL2CPP_LIBS_FOLDER);
-
+        public ManualLogSource LogSource => Logger;
+        public string UnhollowedModulesFolder => null;
+        
         public ConfigHandler ConfigHandler => _configHandler;
         private BepInExConfigHandler _configHandler;
 
@@ -56,19 +34,10 @@ namespace UnityExplorer
             _configHandler = new BepInExConfigHandler();
             ExplorerCore.Init(this);
         }
-
-#if MONO // Mono
+        
         internal void Awake()
         {
             Init();
         }
-
-#else   // Il2Cpp
-        public override void Load()
-        {
-            Init();
-        }
-#endif
     }
 }
-#endif
