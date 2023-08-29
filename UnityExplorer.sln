@@ -17,6 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityExplorer.MelonLoader",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityExplorer.STANDALONE", "UnityExplorer.STANDALONE\UnityExplorer.STANDALONE.csproj", "{FB9DFCD3-3E82-4A67-8BE2-27D04B95C21E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "B73A0302-952E-42D6-925D-ABCB95684477"
+    ProjectSection(SolutionItems) = preProject
+        Common.targets = Common.targets
+    EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Mono|Any CPU = Debug_Mono|Any CPU
