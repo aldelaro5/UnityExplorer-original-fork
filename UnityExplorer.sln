@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 				ProjectSection(SolutionItems) = preProject
 								Common.targets = Common.targets
 					build.ps1 = build.ps1
+					.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 				EndProjectSection
 EndProject
 Global
