@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="$(SolutionDir)Common.targets"/>
+    <Import Project="../Common.targets"/>
     <PropertyGroup>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
@@ -9,6 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\UnityExplorer.Core\UnityExplorer.Core.csproj" />
+        <ProjectReference Include="..\UnityExplorer.Core\UnityExplorer.Core.csproj">
+            <Private>false</Private>
+        </ProjectReference>
     </ItemGroup>
 </Project>
