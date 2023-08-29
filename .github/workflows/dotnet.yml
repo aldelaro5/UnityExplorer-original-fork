@@ -16,7 +16,7 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - run: |
-         ./build.ps1 Release
+         ./build.ps1
       
       # BepInEx IL2CPP
       - uses: actions/upload-artifact@v2
