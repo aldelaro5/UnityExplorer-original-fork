@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityExplorer.Core;
 
-namespace UnityExplorer.STANDALONE.Editor
+namespace UnityExplorer.Standalone.Editor
 {
     public class ExplorerEditorLoader : ExplorerStandalone
     {

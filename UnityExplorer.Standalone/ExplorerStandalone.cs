@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityExplorer.Core;
 using UnityExplorer.Core.Config;
 
-namespace UnityExplorer.STANDALONE
+namespace UnityExplorer.Standalone
 {
 	public class ExplorerStandalone : IExplorerLoader
     {

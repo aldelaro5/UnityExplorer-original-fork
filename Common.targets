@@ -26,7 +26,8 @@
     </PropertyGroup>
     
     <PropertyGroup Condition="($(AssemblyName) != 'UnityExplorer.BepInEx5' Or $(ScriptingBackend) != 'IL2CPP')">
-        <OutputPath>./$(BuildConfigType)/$(AssemblyName)</OutputPath>
+        <OutputPath Condition="$(SolutionDir) != ''">../$(BuildConfigType)/$(AssemblyName)</OutputPath>
+        <OutputPath Condition="$(SolutionDir) == ''">$(SolutionDir)/$(BuildConfigType)/$(AssemblyName)</OutputPath>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
     

@@ -2,7 +2,7 @@
 using UnityExplorer.Core.Config;
 using UnityExplorer.Core.UI;
 
-namespace UnityExplorer.STANDALONE.Editor
+namespace UnityExplorer.Standalone.Editor
 {
     public class ExplorerEditorBehaviour : MonoBehaviour
     {

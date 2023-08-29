@@ -5,9 +5,9 @@ using Tomlet.Models;
 using UnityEngine;
 using UnityExplorer.Core;
 using UnityExplorer.Core.Config;
-using UnityExplorer.STANDALONE.Editor;
+using UnityExplorer.Standalone.Editor;
 
-namespace UnityExplorer.STANDALONE
+namespace UnityExplorer.Standalone
 {
     public class StandaloneConfigHandler : ConfigHandler
     {
