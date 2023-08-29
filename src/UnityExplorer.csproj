@@ -9,10 +9,8 @@
         <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
         <RootNamespace>UnityExplorer</RootNamespace>
         <LangVersion>10.0</LangVersion>
-        <Configurations>
-            Release_BIE_Cpp;Release_BIE5_Mono;Release_BIE6_Mono;Release_ML_Cpp;Release_ML_Mono;Release_STANDALONE_Mono;Release_STANDALONE_Cpp;
-            Debug_BIE_Cpp;Debug_BIE5_Mono;Debug_BIE6_Mono;Debug_ML_Cpp;Debug_ML_Mono;Debug_STANDALONE_Mono;Debug_STANDALONE_Cpp
-        </Configurations>
+        <Configurations>Release_BIE5_Mono;Release_BIE6_Mono;Release_ML_Cpp;Release_ML_Mono;Release_STANDALONE_Mono;Release_STANDALONE_Cpp;Debug_BIE5_Mono;Debug_BIE6_Mono;Debug_ML_Cpp;Debug_ML_Mono;Debug_STANDALONE_Mono;Debug_BIE_Cpp;Debug_STANDALONE_Cpp;Release_BIE_Cpp</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration.StartsWith('Release'))">
@@ -79,31 +77,15 @@
         <AssemblyName>UnityExplorer.STANDALONE.IL2CPP</AssemblyName>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <PS Condition="$(OS) == WINDOWS_NT">powershell</PS>
-        <PS Condition="$(OS) != WINDOWS_NT">pwsh</PS>
-    </PropertyGroup>
-
-    <Target Name="BuildUniverseLibMono" BeforeTargets="ResolveAssemblyReferences">
-        <Message Text="Build type: $(BuildConfigType) Scripting Backend: $(ScriptingBackend)" Importance="high"/>
-        <Message Text="Output path: $(OutputPath)" Importance="high"/>
-        <Exec Command="$(PS) ./build.ps1 &quot;$(BuildConfigType)&quot;" WorkingDirectory="../lib/UniverseLib/"/>
-        <Copy Condition="$(BuildConfigType) == 'Debug'"
-              SourceFiles="../lib/UniverseLib/Debug/NuGet_$(ScriptingBackend)/lib/$(TargetFramework)/UniverseLib.$(ScriptingBackend).pdb"
-              DestinationFolder="$(OutputPath)"/>
-    </Target>
-
     <ItemGroup>
+        <ProjectReference Include="..\lib\mcs\mcs\mcs.csproj">
+            <PrivateAssets>true</PrivateAssets>
+        </ProjectReference>
+        <ProjectReference Include="..\lib\UniverseLib\src\UniverseLib.csproj">
+            <PrivateAssets>true</PrivateAssets>
+        </ProjectReference>
         <PackageReference Include="HarmonyX" Version="2.10.1" IncludeAssets="compile"/>
         <PackageReference Include="Samboy063.Tomlet" Version="3.1.3"/>
-        <Reference Include="UniverseLib.$(ScriptingBackend)">
-            <HintPath Condition="$(Configuration.StartsWith('Debug'))">../lib/UniverseLib/Debug/NuGet_$(ScriptingBackend)/lib/$(TargetFramework)/UniverseLib.$(ScriptingBackend).dll</HintPath>
-            <HintPath Condition="$(Configuration.StartsWith('Release'))">../lib/UniverseLib/Release/NuGet_$(ScriptingBackend)/lib/$(TargetFramework)/UniverseLib.$(ScriptingBackend).dll</HintPath>
-        </Reference>
-        <Reference Include="mcs">
-            <HintPath>..\lib\$(TargetFramework)\mcs.dll</HintPath>
-            <Private>True</Private>
-        </Reference>
     </ItemGroup>
 
     <ItemGroup Condition="$(TargetFramework) == 'net35'">

@@ -1,3 +1,6 @@
 [submodule "lib/UniverseLib"]
 	path = lib/UniverseLib
 	url = https://github.com/aldelaro5/UniverseLib.git
+[submodule "lib/mcs"]
+	path = lib/mcs
+	url = https://github.com/aldelaro5/mcs-unity.git
