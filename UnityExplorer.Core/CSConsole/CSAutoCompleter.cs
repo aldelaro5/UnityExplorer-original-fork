@@ -98,8 +98,12 @@ namespace UnityExplorer.Core.CSConsole
                     if (!namespaceHighlights.ContainsKey(ns))
                         namespaceHighlights.Add(ns, $"<color=#CCCCCC>{ns}</color>");
 
-                    string completion = ns.Substring(input.Length, ns.Length - input.Length);
-                    suggestions.Add(new Suggestion(namespaceHighlights[ns], ns));
+                    int lastDotIndex = input.LastIndexOf('.');
+                    if (ns.Length >= lastDotIndex)
+                    {
+                        string completion = ns.Substring(lastDotIndex + 1);
+                        suggestions.Add(new Suggestion(namespaceHighlights[ns], completion));
+                    }
                 }
             }
 
