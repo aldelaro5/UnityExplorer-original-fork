@@ -87,23 +87,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: artifacts
+        uses: actions/download-artifact@v4
       - name: Draft Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ inputs.name }}
           name: Version ${{ inputs.name }}
-          files: |
-            artifacts/UnityExplorer.BepInEx.IL2CPP.zip
-            artifacts/UnityExplorer.BepInEx5.Mono.zip
-            artifacts/UnityExplorer.BepInEx6.Mono.zip
-            artifacts/UnityExplorer.MelonLoader.IL2CPP.zip
-            artifacts/UnityExplorer.MelonLoader.Mono.zip
-            artifacts/UnityExplorer.Standalone.IL2CPP.zip
-            artifacts/UnityExplorer.Standalone.Mono.zip
-            artifacts/UnityExplorer.Editor.zip
+          files: ./*.zip
           prerelease: ${{ inputs.prerelease }}
           draft: true
           fail_on_unmatched_files: true
