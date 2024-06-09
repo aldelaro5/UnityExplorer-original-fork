@@ -230,7 +230,9 @@ namespace UnityExplorer.Core.UI.Panels
 
             AddSpacer(5);
             
+#if MONO
             ExplorerCore.Harmony.PatchAll(typeof(FreeCamBehaviour));
+#endif
         }
 
         void AddSpacer(int height)
@@ -404,7 +406,8 @@ namespace UnityExplorer.Core.UI.Panels
                 _shouldEatKeys = true;
             }
         }
-        
+
+#if MONO
         private static bool ShouldEatInput()
         {
             return _shouldEatKeys && FreeCamPanel.inFreeCamMode;
@@ -472,5 +475,6 @@ namespace UnityExplorer.Core.UI.Panels
         
             return true;
         }
+#endif
     }
 }

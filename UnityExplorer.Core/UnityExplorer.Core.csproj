@@ -19,7 +19,6 @@
         <ProjectReference Include="..\lib\UniverseLib\src\UniverseLib.csproj">
             <PrivateAssets>true</PrivateAssets>
         </ProjectReference>
-        <PackageReference Include="HarmonyX" Version="2.10.1" IncludeAssets="compile"/>
         <PackageReference Include="Samboy063.Tomlet" Version="5.2.0" />
     </ItemGroup>
 
@@ -30,5 +29,10 @@
     <ItemGroup Condition="$(ScriptingBackend) == 'IL2CPP'">
         <PackageReference Include="Il2CppInterop.Common" Version="1.4.5" />
         <PackageReference Include="Il2CppInterop.Runtime" Version="1.4.5" />
+        <PackageReference Include="HarmonyX" Version="2.10.1" IncludeAssets="compile"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="$(ScriptingBackend) == 'Mono'">
+        <PackageReference Include="HarmonyX" Version="2.10.1"/>
     </ItemGroup>
 </Project>
