@@ -1,4 +1,5 @@
-﻿using UniverseLib.Input;
+﻿using HarmonyLib;
+using UniverseLib.Input;
 using UniverseLib.UI;
 using UniverseLib.UI.Models;
 #if CPP
@@ -59,7 +60,7 @@ namespace UnityExplorer.Core.UI.Panels
             inFreeCamMode = true;
 
             previousMousePosition = InputManager.MousePosition;
-
+            
             CacheMainCamera();
             SetupFreeCamera();
 
@@ -212,8 +213,8 @@ namespace UnityExplorer.Core.UI.Panels
 
             string instructions = @"Controls:
 - WASD / Arrows: Movement
-- Space / PgUp: Move up
-- LeftCtrl / PgDown: Move down
+- E / PgUp: Move up
+- Q / PgDown: Move down
 - Right Mouse Button: Free look
 - Shift: Super speed";
 
@@ -228,6 +229,8 @@ namespace UnityExplorer.Core.UI.Panels
             inspectButton.GameObject.SetActive(false);
 
             AddSpacer(5);
+            
+            ExplorerCore.Harmony.PatchAll(typeof(FreeCamBehaviour));
         }
 
         void AddSpacer(int height)
@@ -341,8 +344,12 @@ namespace UnityExplorer.Core.UI.Panels
         public FreeCamBehaviour(IntPtr ptr) : base(ptr) { }
 #endif
 
+        private static bool _shouldEatKeys = false;
+        
         internal void Update()
         {
+            _shouldEatKeys = false;
+            
             if (FreeCamPanel.inFreeCamMode)
             {
                 if (!FreeCamPanel.ourCamera)
@@ -350,7 +357,7 @@ namespace UnityExplorer.Core.UI.Panels
                     FreeCamPanel.EndFreecam();
                     return;
                 }
-
+                
                 Transform transform = FreeCamPanel.ourCamera.transform;
 
                 FreeCamPanel.currentUserCameraPosition = transform.position;
@@ -373,10 +380,10 @@ namespace UnityExplorer.Core.UI.Panels
                 if (InputManager.GetKey(KeyCode.DownArrow) || InputManager.GetKey(KeyCode.S))
                     transform.position += transform.forward * -1 * moveSpeed;
 
-                if (InputManager.GetKey(KeyCode.Space) || InputManager.GetKey(KeyCode.PageUp))
+                if (InputManager.GetKey(KeyCode.E) || InputManager.GetKey(KeyCode.PageUp))
                     transform.position += transform.up * moveSpeed;
 
-                if (InputManager.GetKey(KeyCode.LeftControl) || InputManager.GetKey(KeyCode.PageDown))
+                if (InputManager.GetKey(KeyCode.Q) || InputManager.GetKey(KeyCode.PageDown))
                     transform.position += transform.up * -1 * moveSpeed;
 
                 if (InputManager.GetMouseButton(1))
@@ -391,7 +398,79 @@ namespace UnityExplorer.Core.UI.Panels
                 FreeCamPanel.UpdatePositionInput();
 
                 FreeCamPanel.previousMousePosition = InputManager.MousePosition;
+
+                // We need to not let the game see any inputs other than mouse press so inputs aren't seen while
+                // operating the camera
+                _shouldEatKeys = true;
             }
+        }
+        
+        private static bool ShouldEatInput()
+        {
+            return _shouldEatKeys && FreeCamPanel.inFreeCamMode;
+        }
+        
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetKey), [typeof(KeyCode)])]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetKeyUp), [typeof(KeyCode)])]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetKeyDown), [typeof(KeyCode)])]
+        public static bool KeyCode_Eat(KeyCode __0, ref bool __result)
+        {
+            if (ShouldEatInput())
+            {
+                __result = false;
+                return false;
+            }
+        
+            return true;
+        }
+        
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetKey), [typeof(string)])]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetKeyUp), [typeof(string)])]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetKeyDown), [typeof(string)])]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetButton), [typeof(string)])]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetButtonUp), [typeof(string)])]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetButtonDown), [typeof(string)])]
+        public static bool String_Eat(string __0, ref bool __result)
+        {
+            if (ShouldEatInput())
+            {
+                __result = false;
+                return false;
+            }
+        
+            return true;
+        }
+        
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetAxis), [typeof(string)])]
+        [HarmonyPatch(typeof(Input), nameof(Input.GetAxisRaw), [typeof(string)])]
+        public static bool Axis_Eat(string __0, ref float __result)
+        {
+            if (ShouldEatInput())
+            {
+                __result = 0.0f;
+                return false;
+            }
+        
+            return true;
+        }
+        
+#pragma warning disable ULib004
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Input), nameof(Input.anyKey), MethodType.Getter)]
+        [HarmonyPatch(typeof(Input), nameof(Input.anyKeyDown), MethodType.Getter)]
+#pragma warning restore ULib004
+        public static bool Getter_bool_Eat(ref bool __result)
+        {
+            if (ShouldEatInput())
+            {
+                __result = false;
+                return false;
+            }
+        
+            return true;
         }
     }
 }
