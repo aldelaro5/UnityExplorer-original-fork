@@ -81,6 +81,8 @@ jobs:
       group: "draft-release"
       cancel-in-progress: true
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v2
       - name: Download Artifacts
