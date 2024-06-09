@@ -75,7 +75,7 @@ jobs:
       # Standalone Mono
       - uses: actions/upload-artifact@v2
         with:
-          name: UnityExplorer.Standalone.Mono..zip
+          name: UnityExplorer.Standalone.Mono.zip
           path: ./Release/UnityExplorer.Standalone.Mono/
   
   release:
@@ -95,7 +95,15 @@ jobs:
         with:
           tag_name: v${{ inputs.name }}
           name: Version ${{ inputs.name }}
-          files: artifacts/*
+          files: |
+            artifacts/UnityExplorer.BepInEx.IL2CPP.zip
+            artifacts/UnityExplorer.BepInEx5.Mono.zip
+            artifacts/UnityExplorer.BepInEx6.Mono.zip
+            artifacts/UnityExplorer.MelonLoader.IL2CPP.zip
+            artifacts/UnityExplorer.MelonLoader.Mono.zip
+            artifacts/UnityExplorer.Standalone.IL2CPP.zip
+            artifacts/UnityExplorer.Standalone.Mono.zip
+            artifacts/UnityExplorer.Editor.zip
           prerelease: ${{ inputs.prerelease }}
           draft: true
           fail_on_unmatched_files: true
