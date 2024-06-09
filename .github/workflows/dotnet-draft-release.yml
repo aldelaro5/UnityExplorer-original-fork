@@ -94,7 +94,15 @@ jobs:
         with:
           tag: v${{ inputs.name }}
           name: Version ${{ inputs.name }}
-          artifacts: artifacts/*.zip
+          artifacts: |
+            artifacts/UnityExplorer.BepInEx.IL2CPP.zip
+            artifacts/UnityExplorer.BepInEx5.Mono.zip
+            artifacts/UnityExplorer.BepInEx6.Mono.zip
+            artifacts/UnityExplorer.MelonLoader.IL2CPP.zip
+            artifacts/UnityExplorer.MelonLoader.Mono.zip
+            artifacts/UnityExplorer.Standalone.IL2CPP.zip
+            artifacts/UnityExplorer.Standalone.Mono.zip
+            artifacts/UnityExplorer.Editor.zip
           prerelease: ${{ inputs.prerelease }}
           draft: true
           replacesArtifacts: false
