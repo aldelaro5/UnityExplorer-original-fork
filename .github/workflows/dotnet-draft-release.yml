@@ -88,7 +88,7 @@ jobs:
         with:
           path: artifacts
       - name: Draft Release
-      - uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1
         with:
           tag: v${{ inputs.name }}
           name: Version ${{ inputs.name }}
