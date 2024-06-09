@@ -7,7 +7,7 @@
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
-        <LangVersion>10.0</LangVersion>
+        <LangVersion>latest</LangVersion>
         <Configurations>Release_Mono;Debug_Mono;Release_IL2CPP;Debug_IL2CPP</Configurations>
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
