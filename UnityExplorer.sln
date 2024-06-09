@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 					build.ps1 = build.ps1
 					.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 					README.md = README.md
-					dotnet-draft-release.yml = dotnet-draft-release.yml
+					.github\workflows\dotnet-draft-release.yml = .github\workflows\dotnet-draft-release.yml
 				EndProjectSection
 EndProject
 Global
