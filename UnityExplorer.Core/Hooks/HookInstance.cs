@@ -198,10 +198,10 @@ namespace UnityExplorer.Core.Hooks
                     codeBuilder.AppendLine(".AppendLine(__result?.ToString() ?? \"null\");");
             }
 
-            codeBuilder.AppendLine($"       UnityExplorer.ExplorerCore.Log(sb.ToString());");
+            codeBuilder.AppendLine($"       UnityExplorer.Core.ExplorerCore.Log(sb.ToString());");
             codeBuilder.AppendLine("    }");
             codeBuilder.AppendLine("    catch (System.Exception ex) {");
-            codeBuilder.AppendLine($"        UnityExplorer.ExplorerCore.LogWarning($\"Exception in patch of {signature}:\\n{{ex}}\");");
+            codeBuilder.AppendLine($"        UnityExplorer.Core.ExplorerCore.LogWarning($\"Exception in patch of {signature}:\\n{{ex}}\");");
             codeBuilder.AppendLine("    }");
 
             codeBuilder.AppendLine("}");
