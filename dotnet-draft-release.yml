@@ -1,0 +1,101 @@
+﻿name: .NET-Draft-Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Version number'
+        required: true
+      prerelease:
+        description: 'Prerelease'
+        required: true
+        type: boolean
+        default: false
+
+env:
+  PROJECT_PATH: ./BugFablesSaveEditor/BugFablesSaveEditor.Desktop
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v2
+      - name: Update submodules
+        run: git submodule update --init
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0.x'
+      - run: |
+          ./build.ps1
+
+      # BepInEx IL2CPP
+      - uses: actions/upload-artifact@v2
+        with:
+          name: UnityExplorer.BepInEx.IL2CPP
+          path: ./Release/UnityExplorer.BepInEx6.IL2CPP/
+
+      # BepInEx 5 Mono
+      - uses: actions/upload-artifact@v2
+        with:
+          name: UnityExplorer.BepInEx5.Mono
+          path: ./Release/UnityExplorer.BepInEx5.Mono/
+
+      # BepInEx 6 Mono
+      - uses: actions/upload-artifact@v2
+        with:
+          name: UnityExplorer.BepInEx6.Mono
+          path: ./Release/UnityExplorer.BepInEx6.Mono/
+
+      # Editor
+      - uses: actions/upload-artifact@v2
+        with:
+          name: UnityExplorer.Editor
+          path: ./UnityEditorPackage/
+
+      # MelonLoader IL2CPP
+      - uses: actions/upload-artifact@v2
+        with:
+          name: UnityExplorer.MelonLoader.IL2CPP
+          path: ./Release/UnityExplorer.MelonLoader.IL2CPP/
+
+      # MelonLoader Mono
+      - uses: actions/upload-artifact@v2
+        with:
+          name: UnityExplorer.MelonLoader.Mono
+          path: ./Release/UnityExplorer.MelonLoader.Mono/
+
+      # Standalone Il2Cpp
+      - uses: actions/upload-artifact@v2
+        with:
+          name: UnityExplorer.Standalone.IL2CPP
+          path: ./Release/UnityExplorer.Standalone.IL2CPP/
+
+      # Standalone Mono
+      - uses: actions/upload-artifact@v2
+        with:
+          name: UnityExplorer.Standalone.Mono
+          path: ./Release/UnityExplorer.Standalone.Mono/
+  
+  release:
+    needs: build
+    concurrency:
+      group: "draft-release"
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+      - name: Draft Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ inputs.name }}
+          name: Version ${{ inputs.name }}
+          files: artifacts/**/*.zip
+          prerelease: ${{ inputs.prerelease }}
+          draft: true
+          fail_on_unmatched_files: true
