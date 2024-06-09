@@ -86,13 +86,14 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          path: ${{ github.workspace }}/artifacts
+          path: artifacts
       - name: Draft Release
-        uses: softprops/action-gh-release@v2
+      - uses: ncipollo/release-action@v1
         with:
-          tag_name: v${{ inputs.name }}
+          tag: v${{ inputs.name }}
           name: Version ${{ inputs.name }}
-          files: ${{ github.workspace }}/artifacts/*.*
+          artifacts: artifacts/*.zip
           prerelease: ${{ inputs.prerelease }}
           draft: true
-          fail_on_unmatched_files: true
+          replacesArtifacts: false
+          artifactErrorsFailBuild: true
