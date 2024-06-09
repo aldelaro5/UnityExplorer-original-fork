@@ -30,49 +30,49 @@ jobs:
       # BepInEx IL2CPP
       - uses: actions/upload-artifact@v4
         with:
-          name: UnityExplorer.BepInEx.IL2CPP.zip
+          name: UnityExplorer.BepInEx.IL2CPP
           path: ./Release/UnityExplorer.BepInEx6.IL2CPP/
 
       # BepInEx 5 Mono
       - uses: actions/upload-artifact@v4
         with:
-          name: UnityExplorer.BepInEx5.Mono.zip
+          name: UnityExplorer.BepInEx5.Mono
           path: ./Release/UnityExplorer.BepInEx5.Mono/
 
       # BepInEx 6 Mono
       - uses: actions/upload-artifact@v4
         with:
-          name: UnityExplorer.BepInEx6.Mono.zip
+          name: UnityExplorer.BepInEx6.Mono
           path: ./Release/UnityExplorer.BepInEx6.Mono/
 
       # Editor
       - uses: actions/upload-artifact@v4
         with:
-          name: UnityExplorer.Editor.zip
+          name: UnityExplorer.Editor
           path: ./UnityEditorPackage/
 
       # MelonLoader IL2CPP
       - uses: actions/upload-artifact@v4
         with:
-          name: UnityExplorer.MelonLoader.IL2CPP.zip
+          name: UnityExplorer.MelonLoader.IL2CPP
           path: ./Release/UnityExplorer.MelonLoader.IL2CPP/
 
       # MelonLoader Mono
       - uses: actions/upload-artifact@v4
         with:
-          name: UnityExplorer.MelonLoader.Mono.zip
+          name: UnityExplorer.MelonLoader.Mono
           path: ./Release/UnityExplorer.MelonLoader.Mono/
 
       # Standalone Il2Cpp
       - uses: actions/upload-artifact@v4
         with:
-          name: UnityExplorer.Standalone.IL2CPP.zip
+          name: UnityExplorer.Standalone.IL2CPP
           path: ./Release/UnityExplorer.Standalone.IL2CPP/
 
       # Standalone Mono
       - uses: actions/upload-artifact@v4
         with:
-          name: UnityExplorer.Standalone.Mono.zip
+          name: UnityExplorer.Standalone.Mono
           path: ./Release/UnityExplorer.Standalone.Mono/
   
   release:
@@ -94,15 +94,7 @@ jobs:
         with:
           tag: v${{ inputs.name }}
           name: Version ${{ inputs.name }}
-          artifacts: |
-            artifacts/UnityExplorer.BepInEx.IL2CPP.zip
-            artifacts/UnityExplorer.BepInEx5.Mono.zip
-            artifacts/UnityExplorer.BepInEx6.Mono.zip
-            artifacts/UnityExplorer.MelonLoader.IL2CPP.zip
-            artifacts/UnityExplorer.MelonLoader.Mono.zip
-            artifacts/UnityExplorer.Standalone.IL2CPP.zip
-            artifacts/UnityExplorer.Standalone.Mono.zip
-            artifacts/UnityExplorer.Editor.zip
+          artifacts: artifacts/**/*.zip
           prerelease: ${{ inputs.prerelease }}
           draft: true
           replacesArtifacts: false
