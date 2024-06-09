@@ -12,9 +12,6 @@ on:
         type: boolean
         default: false
 
-env:
-  PROJECT_PATH: ./BugFablesSaveEditor/BugFablesSaveEditor.Desktop
-
 jobs:
   build:
     runs-on: windows-latest
@@ -31,49 +28,49 @@ jobs:
           ./build.ps1
 
       # BepInEx IL2CPP
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: UnityExplorer.BepInEx.IL2CPP.zip
           path: ./Release/UnityExplorer.BepInEx6.IL2CPP/
 
       # BepInEx 5 Mono
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: UnityExplorer.BepInEx5.Mono.zip
           path: ./Release/UnityExplorer.BepInEx5.Mono/
 
       # BepInEx 6 Mono
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: UnityExplorer.BepInEx6.Mono.zip
           path: ./Release/UnityExplorer.BepInEx6.Mono/
 
       # Editor
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: UnityExplorer.Editor.zip
           path: ./UnityEditorPackage/
 
       # MelonLoader IL2CPP
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: UnityExplorer.MelonLoader.IL2CPP.zip
           path: ./Release/UnityExplorer.MelonLoader.IL2CPP/
 
       # MelonLoader Mono
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: UnityExplorer.MelonLoader.Mono.zip
           path: ./Release/UnityExplorer.MelonLoader.Mono/
 
       # Standalone Il2Cpp
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: UnityExplorer.Standalone.IL2CPP.zip
           path: ./Release/UnityExplorer.Standalone.IL2CPP/
 
       # Standalone Mono
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: UnityExplorer.Standalone.Mono.zip
           path: ./Release/UnityExplorer.Standalone.Mono/
