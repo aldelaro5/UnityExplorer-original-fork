@@ -1,8 +1,6 @@
-# 🍴 About this fork 🍴
+# THIS FORK IS ABANDONED
 
-This fork contains general UI and QOL improvements for my personal usage notably with my modding project plans. It contains modifications of Unity Explorer, UniverseLib and mcs to fully integrate them (see the commits list and the release notes for details). You're welcome to fork these for yourself, but I am only maintaining this fork on a as needed basis.
-
-Builds are in the repository's [Release](https://github.com/aldelaro5/UnityExplorer/releases) section and they start at version 4.10.0 as the last version released by the author is 4.9.0. The original README is left preserved with the exception of this section and its content are below this section. This means it may be out of date so be careful!
+This fork won't receive any updates as it is being superceded by a better fork I made at [This repository](https://github.com/aldelaro5/UnityExplorer) which includes every changes this fork had and much more.
 
 <p align="center">
   <img align="center" src="img/icon.png">
